@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yunus Ergen — Freelance Web Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:   #0D0D0D;
+  --off:     #F7F6F3;
+  --white:   #FFFFFF;
+  --muted:   #9A9690;
+  --border:  rgba(13,13,13,0.1);
+  --accent:  #0D0D0D;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'Instrument Sans', sans-serif;
+  background: var(--white);
+  color: var(--black);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── CURSOR ── */
+*, a, button { cursor: default; }
+a, button { cursor: pointer; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.5rem 3rem;
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.2rem;
+  color: var(--black);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+
+.nav-logo span {
+  font-style: italic;
+  opacity: 0.45;
+}
+
+.nav-links { display: flex; gap: 2.5rem; list-style: none; align-items: center; }
+.nav-links a {
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--black); }
+
+.nav-available {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.08em;
+  color: #2D7D4F;
+  background: rgba(45,125,79,0.08);
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+}
+.nav-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #2D7D4F;
+  animation: blink 2.5s ease-in-out infinite;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+.hamburger span { display: block; width: 20px; height: 1px; background: var(--black); transition: all 0.3s; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0 3rem 5rem;
+  padding-top: 6rem;
+  position: relative;
+  overflow: hidden;
+  background: var(--white);
+}
+
+.hero-line {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+.hero-line:nth-child(1) { left: 25%; }
+.hero-line:nth-child(2) { left: 50%; }
+.hero-line:nth-child(3) { left: 75%; }
+
+.hero-content { position: relative; z-index: 2; }
+
+.hero-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 2rem;
+  display: flex; align-items: center; gap: 0.8rem;
+}
+.hero-label::before {
+  content: '';
+  display: block; width: 2rem; height: 1px;
+  background: var(--muted);
+}
+
+.hero-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(3.5rem, 7vw, 7.5rem);
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  color: var(--black);
+  margin-bottom: 3rem;
+  max-width: 14ch;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--muted);
+}
+
+.hero-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 3rem;
+  flex-wrap: wrap;
+  padding-top: 3rem;
+  border-top: 1px solid var(--border);
+}
+
+.hero-desc {
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.75;
+  max-width: 42ch;
+}
+.hero-desc strong { color: var(--black); font-weight: 400; }
+
+.hero-cta {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-size: 0.8rem; font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--white);
+  background: var(--black);
+  padding: 0.9rem 2rem;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: opacity 0.2s, transform 0.2s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.hero-cta:hover { opacity: 0.8; transform: translateY(-1px); }
+
+.hero-scroll {
+  position: absolute;
+  right: 3rem; bottom: 5rem;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 0.5rem;
+  font-size: 0.62rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--muted);
+  writing-mode: vertical-rl;
+}
+.hero-scroll-line {
+  width: 1px; height: 3rem;
+  background: var(--border);
+  animation: scrolldown 2s ease-in-out infinite;
+}
+@keyframes scrolldown {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* ── STATS BAR ── */
+.stats-bar {
+  background: var(--off);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.stat-item {
+  padding: 2.2rem 2rem;
+  border-right: 1px solid var(--border);
+  display: flex; flex-direction: column; gap: 0.3rem;
+}
+.stat-item:last-child { border-right: none; }
+
+.stat-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 2.2rem;
+  font-weight: 400;
+  color: var(--black);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+/* ── LEISTUNGEN ── */
+.leistungen {
+  padding: 8rem 3rem;
+  background: var(--white);
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 5rem;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.section-label {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.8rem;
+}
+
+.section-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  font-weight: 400;
+  color: var(--black);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+.section-title em { font-style: italic; color: var(--muted); }
+
+.leistungen-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+}
+
+.leistung-card {
+  padding: 2.5rem 2rem;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.25s;
+}
+.leistung-card:hover { background: var(--off); }
+.leistung-card:nth-child(3n) { border-right: none; }
+.leistung-card:nth-last-child(-n+3) { border-bottom: none; }
+
+.leistung-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+  opacity: 0.5;
+}
+
+.leistung-title {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--black);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.leistung-desc {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.leistung-tags {
+  display: flex; flex-wrap: wrap; gap: 5px;
+  margin-top: 1.2rem;
+}
+.leistung-tag {
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 3px 8px;
+  border-radius: 999px;
+}
+
+/* ── PROJEKTE ── */
+.projekte {
+  padding: 8rem 3rem;
+  background: var(--off);
+}
+
+.projekte-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--border);
+  margin-top: 4rem;
+}
+
+.projekt-item {
+  display: grid;
+  grid-template-columns: 50px 1fr 32px;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.8rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  text-decoration: none;
+  transition: background 0.2s;
+  position: relative;
+  background: var(--white);
+}
+.projekt-item:last-child { border-bottom: none; }
+.projekt-item:hover { background: var(--black); }
+.projekt-item:hover .proj-num,
+.projekt-item:hover .proj-name,
+.projekt-item:hover .proj-desc,
+.projekt-item:hover .proj-type,
+.projekt-item:hover .proj-arrow { color: var(--white); }
+.projekt-item:hover .proj-tag { border-color: rgba(255,255,255,0.2); color: rgba(255,255,255,0.5); }
+
+.proj-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--muted);
+  transition: color 0.2s;
+  align-self: start;
+  padding-top: 2px;
+}
+
+.proj-main { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.proj-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--black);
+  transition: color 0.2s;
+  line-height: 1.3;
+}
+
+.proj-desc {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--muted);
+  transition: color 0.2s;
+  line-height: 1.5;
+}
+
+.proj-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-top: 0.2rem;
+}
+
+.proj-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.proj-tag {
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 2px 7px;
+  border-radius: 999px;
+  transition: all 0.2s;
+}
+
+.proj-meta-sep {
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.proj-type {
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+
+.proj-arrow {
+  font-size: 1rem;
+  color: var(--muted);
+  text-align: right;
+  transition: color 0.2s, transform 0.2s;
+  align-self: center;
+}
+.projekt-item:hover .proj-arrow { transform: translate(3px, -3px); }
+
+/* ── ÜBER MICH ── */
+.ueber {
+  padding: 8rem 3rem;
+  background: var(--white);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: center;
+}
+
+.ueber-visual {
+  position: relative;
+  height: 480px;
+}
+
+.ueber-box-main {
+  position: absolute;
+  inset: 0;
+  background: var(--off);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ueber-initials {
+  font-family: 'Instrument Serif', serif;
+  font-size: 7rem;
+  font-style: italic;
+  color: var(--black);
+  opacity: 0.08;
+  letter-spacing: -0.04em;
+  user-select: none;
+}
+
+.ueber-badge {
+  position: absolute;
+  bottom: -1.5rem;
+  right: -1.5rem;
+  background: var(--black);
+  color: var(--white);
+  padding: 1.2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.ueber-badge-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 2rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.ueber-badge-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+
+.ueber-content { }
+
+.ueber-content p {
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.85;
+  margin-bottom: 1.2rem;
+}
+.ueber-content p strong { color: var(--black); font-weight: 400; }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--border);
+  margin-top: 2.5rem;
+}
+
+.skill-item {
+  padding: 0.9rem 1rem;
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--black);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  transition: background 0.2s;
+}
+.skill-item:hover { background: var(--off); }
+.skill-item:nth-child(2n) { border-right: none; }
+.skill-item:nth-last-child(-n+2) { border-bottom: none; }
+
+.skill-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--muted);
+  flex-shrink: 0;
+}
+
+/* ── PROZESS ── */
+.prozess {
+  padding: 8rem 3rem;
+  background: var(--off);
+}
+
+.prozess-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+  margin-top: 4rem;
+}
+
+.prozess-step {
+  padding: 2.5rem 2rem;
+  border-right: 1px solid var(--border);
+  position: relative;
+  background: var(--white);
+  transition: background 0.2s;
+}
+.prozess-step:last-child { border-right: none; }
+.prozess-step:hover { background: var(--off); }
+
+.prozess-step-num {
+  font-family: 'Instrument Serif', serif;
+  font-size: 3.5rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--black);
+  opacity: 0.06;
+  line-height: 1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.03em;
+}
+
+.prozess-step h4 {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--black);
+  margin-bottom: 0.6rem;
+  line-height: 1.3;
+}
+
+.prozess-step p {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── PREISE ── */
+.preise {
+  padding: 8rem 3rem;
+  background: var(--white);
+}
+
+.preise-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--border);
+  margin-top: 4rem;
+}
+
+.preis-card {
+  padding: 3rem 2.5rem;
+  border-right: 1px solid var(--border);
+  position: relative;
+  transition: background 0.2s;
+}
+.preis-card:last-child { border-right: none; }
+.preis-card.featured { background: var(--black); }
+
+.preis-label {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.5rem;
+}
+.preis-card.featured .preis-label { color: rgba(255,255,255,0.4); }
+
+.preis-name {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--black);
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.01em;
+}
+.preis-card.featured .preis-name { color: var(--white); }
+
+.preis-price {
+  display: flex;
+  align-items: baseline;
+  gap: 0.2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border);
+}
+.preis-card.featured .preis-price { border-bottom-color: rgba(255,255,255,0.1); }
+
+.preis-currency {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.preis-card.featured .preis-currency { color: rgba(255,255,255,0.4); }
+
+.preis-amount {
+  font-family: 'Instrument Serif', serif;
+  font-size: 3rem;
+  font-weight: 400;
+  color: var(--black);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+.preis-card.featured .preis-amount { color: var(--white); }
+
+.preis-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 2.5rem;
+}
+
+.preis-features li {
+  font-size: 0.83rem;
+  font-weight: 300;
+  color: var(--muted);
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  line-height: 1.4;
+}
+.preis-card.featured .preis-features li { color: rgba(255,255,255,0.6); }
+
+.preis-features li::before {
+  content: '';
+  width: 12px; height: 1px;
+  background: var(--border);
+  flex-shrink: 0;
+  margin-top: 0.55rem;
+}
+.preis-card.featured .preis-features li::before { background: rgba(255,255,255,0.2); }
+
+.preis-btn {
+  display: block;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.9rem;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  color: var(--black);
+  transition: all 0.2s;
+  border-radius: 2px;
+}
+.preis-btn:hover { background: var(--black); color: var(--white); border-color: var(--black); }
+.preis-card.featured .preis-btn {
+  background: var(--white);
+  color: var(--black);
+  border-color: var(--white);
+}
+.preis-card.featured .preis-btn:hover { background: var(--off); }
+
+.featured-badge {
+  display: inline-block;
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 3px 8px;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+}
+
+/* ── KONTAKT ── */
+.kontakt {
+  padding: 8rem 3rem;
+  background: var(--black);
+}
+
+.kontakt .section-label { color: rgba(255,255,255,0.3); }
+.kontakt .section-title { color: var(--white); }
+.kontakt .section-title em { color: rgba(255,255,255,0.3); }
+
+.kontakt-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: start;
+  margin-top: 5rem;
+}
+
+.kontakt-left p {
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.8;
+  margin-bottom: 3rem;
+  max-width: 38ch;
+}
+
+.kontakt-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.kontakt-info-item h4 {
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.25);
+  margin-bottom: 0.3rem;
+}
+
+.kontakt-info-item p {
+  font-size: 0.92rem;
+  color: rgba(255,255,255,0.7);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.form-group { margin-bottom: 1.2rem; }
+
+.form-group label {
+  display: block;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--white);
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+  border-radius: 2px;
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: rgba(255,255,255,0.2); }
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus { border-color: rgba(255,255,255,0.35); }
+.form-group select option { background: #1a1a1a; }
+.form-group textarea { resize: vertical; min-height: 110px; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+.form-submit {
+  width: 100%;
+  padding: 1rem;
+  background: var(--white);
+  color: var(--black);
+  border: none;
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  border-radius: 2px;
+  margin-top: 0.5rem;
+}
+.form-submit:hover { opacity: 0.85; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--black);
+  padding: 2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.footer-logo {
+  font-family: 'Instrument Serif', serif;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+}
+.footer-logo span { font-style: italic; }
+
+.footer-links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; }
+.footer-links a {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.2);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: rgba(255,255,255,0.5); }
+
+.footer-copy { font-size: 0.7rem; color: rgba(255,255,255,0.15); }
+
+/* ── FADE IN ── */
+.fade {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade.in { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+/* ── TABLET (768px – 960px) ── */
+@media (max-width: 960px) and (min-width: 641px) {
+  nav { padding: 1.2rem 2rem; }
+  .nav-links { gap: 1.5rem; }
+  .nav-available { display: none; }
+
+  .hero { padding: 0 2rem 4rem; }
+  .hero-scroll { display: none; }
+
+  .stats-bar { grid-template-columns: repeat(4, 1fr); }
+
+  .leistungen, .projekte, .ueber, .prozess, .preise, .kontakt { padding: 5rem 2rem; }
+
+  .leistungen-grid { grid-template-columns: 1fr 1fr; }
+  .leistung-card:nth-child(2n) { border-right: none; }
+  .leistung-card:nth-child(1),
+  .leistung-card:nth-child(2) { border-bottom: 1px solid var(--border); }
+  .leistung-card:nth-child(3),
+  .leistung-card:nth-child(4) { border-bottom: 1px solid var(--border); }
+  .leistung-card:last-child { border-bottom: none; }
+
+  .projekt-item { grid-template-columns: 60px 1fr 24px; gap: 1.2rem; }
+  .proj-arrow { display: block; }
+
+  .ueber { gap: 3rem; }
+  .ueber-visual { height: 360px; }
+
+  .prozess-steps { grid-template-columns: 1fr 1fr; }
+  .prozess-step:nth-child(2n) { border-right: none; }
+  .prozess-step:nth-child(1),
+  .prozess-step:nth-child(2) { border-bottom: 1px solid var(--border); }
+
+  .preise-grid { grid-template-columns: 1fr; }
+  .preis-card { border-right: none; border-bottom: 1px solid var(--border); }
+  .preis-card:last-child { border-bottom: none; }
+  .preis-card.featured { border-bottom-color: rgba(255,255,255,0.1); }
+
+  .kontakt-grid { grid-template-columns: 1fr; gap: 3rem; }
+
+  footer { padding: 1.5rem 2rem; }
+  .section-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+}
+
+/* ── MOBIL (bis 640px) ── */
+@media (max-width: 640px) {
+  nav { padding: 1.2rem 1.25rem; }
+  .nav-links, .nav-available { display: none; }
+  .hamburger { display: flex; }
+
+  .hero { padding: 0 1.25rem 3.5rem; }
+  .hero-line { display: none; }
+  .hero-scroll { display: none; }
+  .hero-title { font-size: clamp(2.8rem, 12vw, 4rem); }
+  .hero-bottom { flex-direction: column; align-items: flex-start; gap: 1.5rem; }
+  .hero-cta { width: 100%; justify-content: center; }
+
+  .stats-bar { grid-template-columns: 1fr 1fr; }
+  .stat-item:nth-child(2) { border-right: none; }
+  .stat-item:nth-child(3) { border-top: 1px solid var(--border); }
+  .stat-item:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
+  .stat-num { font-size: 1.8rem; }
+
+  .leistungen, .projekte, .ueber, .prozess, .preise, .kontakt { padding: 4rem 1.25rem; }
+
+  .leistungen-grid { grid-template-columns: 1fr; }
+  .leistung-card { border-right: none; }
+  .leistung-card:not(:last-child) { border-bottom: 1px solid var(--border); }
+
+  .projekt-item { grid-template-columns: 44px 1fr 20px; gap: 0.8rem; padding: 1.4rem 1rem; }
+  .proj-name { font-size: 0.92rem; }
+  .proj-desc { font-size: 0.75rem; }
+
+  .ueber { grid-template-columns: 1fr; gap: 2.5rem; }
+  .ueber-visual { height: 200px; }
+  .ueber-badge { bottom: -0.8rem; right: -0.8rem; padding: 0.9rem 1.1rem; }
+  .ueber-badge-num { font-size: 1.6rem; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .skill-item:nth-child(2n) { border-right: 0.5px solid var(--border); }
+
+  .prozess-steps { grid-template-columns: 1fr; }
+  .prozess-step { border-right: none; }
+  .prozess-step:not(:last-child) { border-bottom: 1px solid var(--border); }
+
+  .preise-grid { grid-template-columns: 1fr; }
+  .preis-card { border-right: none; border-bottom: 1px solid var(--border); }
+  .preis-card:last-child { border-bottom: none; }
+  .preis-card.featured { border-bottom-color: rgba(255,255,255,0.1); }
+  .preis-amount { font-size: 2.5rem; }
+
+  .kontakt-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .form-row { grid-template-columns: 1fr; }
+
+  footer { padding: 1.25rem; flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .footer-links { gap: 1rem; }
+  .section-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  .section-title { font-size: clamp(1.5rem, 7vw, 2.2rem); }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Yunus Ergen<span>.dev</span></a>
+  <ul class="nav-links">
+    <li><a href="#leistungen">Leistungen</a></li>
+    <li><a href="#projekte">Projekte</a></li>
+    <li><a href="#preise">Preise</a></li>
+    <li><a href="#kontakt">Kontakt</a></li>
+  </ul>
+  <div class="nav-available">
+    <div class="nav-dot"></div>
+    Verfügbar für Projekte
+  </div>
+  <div class="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-line"></div>
+  <div class="hero-line"></div>
+  <div class="hero-line"></div>
+  <div class="hero-content fade">
+    <div class="hero-label">Freelance Web Developer</div>
+    <h1 class="hero-title">Websites, <em>die</em> Kunden überzeugen.</h1>
+    <div class="hero-bottom">
+      <p class="hero-desc">
+        Ich baue <strong>professionelle Websites für lokale Unternehmen</strong> im deutschsprachigen Raum —
+        schnell, modern und auf Ihr Unternehmen zugeschnitten.
+      </p>
+      <a href="#kontakt" class="hero-cta">Projekt anfragen →</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar fade">
+  <div class="stat-item">
+    <div class="stat-num">4+</div>
+    <div class="stat-label">Jahre Erfahrung</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">3</div>
+    <div class="stat-label">Demo-Projekte</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">2–3</div>
+    <div class="stat-label">Wochen Lieferzeit</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">100%</div>
+    <div class="stat-label">Maßgeschneidert</div>
+  </div>
+</div>
+
+<!-- LEISTUNGEN -->
+<section class="leistungen" id="leistungen">
+  <div class="section-header fade">
+    <div>
+      <div class="section-label">Was ich anbiete</div>
+      <h2 class="section-title">Leistungen <em>&</em><br>Technologien</h2>
+    </div>
+  </div>
+  <div class="leistungen-grid fade">
+    <div class="leistung-card">
+      <div class="leistung-num">01</div>
+      <div class="leistung-title">Website-Entwicklung</div>
+      <p class="leistung-desc">Professionelle Unternehmenswebsites — von der Startseite bis zum Kontaktformular. Sauber, schnell und auf Ihre Marke zugeschnitten.</p>
+      <div class="leistung-tags">
+        <span class="leistung-tag">HTML</span>
+        <span class="leistung-tag">CSS</span>
+        <span class="leistung-tag">JavaScript</span>
+      </div>
+    </div>
+    <div class="leistung-card">
+      <div class="leistung-num">02</div>
+      <div class="leistung-title">Mobile-Optimierung</div>
+      <p class="leistung-desc">Über 60% der Besucher kommen vom Smartphone. Jede Website die ich baue funktioniert perfekt auf allen Geräten.</p>
+      <div class="leistung-tags">
+        <span class="leistung-tag">Responsive</span>
+        <span class="leistung-tag">Performance</span>
+      </div>
+    </div>
+    <div class="leistung-card">
+      <div class="leistung-num">03</div>
+      <div class="leistung-title">Suchmaschinenoptimierung</div>
+      <p class="leistung-desc">Technisches SEO direkt beim Aufbau — sauberer Code, schnelle Ladezeiten und richtige Meta-Tags damit Google Ihre Seite findet.</p>
+      <div class="leistung-tags">
+        <span class="leistung-tag">SEO</span>
+        <span class="leistung-tag">Core Web Vitals</span>
+      </div>
+    </div>
+    <div class="leistung-card">
+      <div class="leistung-num">04</div>
+      <div class="leistung-title">Kontaktformulare & Funktionen</div>
+      <p class="leistung-desc">Reservierungsformulare, Angebotsanfragen, Newsletter-Anmeldungen — alles was Ihre Website von einer Visitenkarte zu einem Werkzeug macht.</p>
+      <div class="leistung-tags">
+        <span class="leistung-tag">Formulare</span>
+        <span class="leistung-tag">Integration</span>
+      </div>
+    </div>
+    <div class="leistung-card">
+      <div class="leistung-num">05</div>
+      <div class="leistung-title">Hosting & Deployment</div>
+      <p class="leistung-desc">Ich richte Hosting, Domain und alles Technische ein. Sie müssen sich um nichts kümmern — die Website ist einfach online.</p>
+      <div class="leistung-tags">
+        <span class="leistung-tag">Netlify</span>
+        <span class="leistung-tag">Vercel</span>
+        <span class="leistung-tag">Domain</span>
+      </div>
+    </div>
+    <div class="leistung-card">
+      <div class="leistung-num">06</div>
+      <div class="leistung-title">Wartung & Support</div>
+      <p class="leistung-desc">Nach dem Launch bin ich weiterhin erreichbar. Updates, Anpassungen und Erweiterungen — monatlich oder nach Bedarf.</p>
+      <div class="leistung-tags">
+        <span class="leistung-tag">Support</span>
+        <span class="leistung-tag">Updates</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJEKTE -->
+<section class="projekte" id="projekte">
+  <div class="section-header fade">
+    <div>
+      <div class="section-label">Ausgewählte Arbeiten</div>
+      <h2 class="section-title">Aktuelle <em>Projekte</em></h2>
+    </div>
+  </div>
+  <div class="projekte-list fade">
+    <div class="projekt-item">
+      <div class="proj-num">01</div>
+      <div class="proj-main">
+        <div class="proj-name">Forma Studio</div>
+        <div class="proj-desc">Vollständige Website für ein Innenarchitektur-Büro — elegant, zweispaltig, mit Portfolio-Galerie</div>
+        <div class="proj-meta">
+          <div class="proj-tags">
+            <span class="proj-tag">HTML/CSS</span>
+            <span class="proj-tag">JS</span>
+            <span class="proj-tag">Responsive</span>
+          </div>
+          <div class="proj-meta-sep"></div>
+          <div class="proj-type">Innenarchitektur</div>
+        </div>
+      </div>
+      <div class="proj-arrow">↗</div>
+    </div>
+    <div class="projekt-item">
+      <div class="proj-num">02</div>
+      <div class="proj-main">
+        <div class="proj-name">APEX Training</div>
+        <div class="proj-desc">Energetische Website für ein Personal Training Studio — mit Preistabelle, Testimonials und Buchungsformular</div>
+        <div class="proj-meta">
+          <div class="proj-tags">
+            <span class="proj-tag">HTML/CSS</span>
+            <span class="proj-tag">JS</span>
+            <span class="proj-tag">Dark Mode</span>
+          </div>
+          <div class="proj-meta-sep"></div>
+          <div class="proj-type">Fitness & Sport</div>
+        </div>
+      </div>
+      <div class="proj-arrow">↗</div>
+    </div>
+    <div class="projekt-item">
+      <div class="proj-num">03</div>
+      <div class="proj-main">
+        <div class="proj-name">Trattoria Sole</div>
+        <div class="proj-desc">Warme Restaurant-Website mit interaktiver Speisekarte, Reservierungsformular und Galerie</div>
+        <div class="proj-meta">
+          <div class="proj-tags">
+            <span class="proj-tag">HTML/CSS</span>
+            <span class="proj-tag">JS</span>
+            <span class="proj-tag">Formular</span>
+          </div>
+          <div class="proj-meta-sep"></div>
+          <div class="proj-type">Gastronomie</div>
+        </div>
+      </div>
+      <div class="proj-arrow">↗</div>
+    </div>
+  </div>
+</section>
+
+<!-- ÜBER MICH -->
+<section class="ueber" id="ueber">
+  <div class="ueber-visual fade">
+    <div class="ueber-box-main">
+      <div class="ueber-initials">YE</div>
+    </div>
+    <div class="ueber-badge">
+      <div class="ueber-badge-num">4+</div>
+      <div class="ueber-badge-label">Jahre Erfahrung</div>
+    </div>
+  </div>
+  <div class="fade">
+    <div class="section-label">Über mich</div>
+    <h2 class="section-title" style="margin-bottom:1.5rem;">Der Entwickler<br><em>hinter dem Code</em></h2>
+    <p>Ich bin ausgebildeter Applikationsentwickler mit <strong>über 4 Jahren Erfahrung</strong> in der professionellen Softwareentwicklung. Als Freelancer helfe ich lokalen Unternehmen im deutschsprachigen Raum, mit einer modernen Website online sichtbar zu werden.</p>
+    <p>Mein Fokus liegt auf sauberem Code, schnellen Ladezeiten und einem Design, das nicht nur gut aussieht — sondern auch Kunden bringt.</p>
+    <div class="skills-grid">
+      <div class="skill-item"><div class="skill-dot"></div>HTML & CSS</div>
+      <div class="skill-item"><div class="skill-dot"></div>JavaScript</div>
+      <div class="skill-item"><div class="skill-dot"></div>Responsive Design</div>
+      <div class="skill-item"><div class="skill-dot"></div>SEO Grundlagen</div>
+      <div class="skill-item"><div class="skill-dot"></div>Git & Version Control</div>
+      <div class="skill-item"><div class="skill-dot"></div>Netlify / Vercel</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROZESS -->
+<section class="prozess" id="prozess">
+  <div class="section-header fade">
+    <div>
+      <div class="section-label">So arbeite ich</div>
+      <h2 class="section-title">Vom Gespräch<br><em>zur fertigen Website</em></h2>
+    </div>
+  </div>
+  <div class="prozess-steps fade">
+    <div class="prozess-step">
+      <div class="prozess-step-num">01</div>
+      <h4>Kostenloses Erstgespräch</h4>
+      <p>Wir sprechen über Ihr Unternehmen, Ihre Ziele und was Sie von der Website erwarten. Kein Druck, kein Angebot auf den ersten Blick.</p>
+    </div>
+    <div class="prozess-step">
+      <div class="prozess-step-num">02</div>
+      <h4>Angebot & Konzept</h4>
+      <p>Sie erhalten innerhalb von 24 Stunden ein klares Angebot — Preis, Umfang, Lieferdatum. Alles schriftlich, ohne versteckte Kosten.</p>
+    </div>
+    <div class="prozess-step">
+      <div class="prozess-step-num">03</div>
+      <h4>Entwicklung</h4>
+      <p>Ich entwickle Ihre Website und zeige Ihnen nach einer Woche einen ersten Entwurf. Sie können Feedback geben — zwei Runden inklusive.</p>
+    </div>
+    <div class="prozess-step">
+      <div class="prozess-step-num">04</div>
+      <h4>Live & fertig</h4>
+      <p>Die fertige Website geht online. Ich übergebe alles und stehe für Fragen bereit. Optional: monatliches Wartungspaket.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PREISE -->
+<section class="preise" id="preise">
+  <div class="section-header fade">
+    <div>
+      <div class="section-label">Investition</div>
+      <h2 class="section-title">Transparente <em>Preise</em></h2>
+    </div>
+  </div>
+  <div class="preise-grid fade">
+    <div class="preis-card">
+      <div class="preis-label">Starter</div>
+      <div class="preis-name">Einsteiger</div>
+      <div class="preis-price">
+        <span class="preis-currency">CHF</span>
+        <span class="preis-amount">699</span>
+      </div>
+      <ul class="preis-features">
+        <li>5 Seiten (Start, Über uns, Leistungen, Kontakt, Impressum)</li>
+        <li>Mobil-optimiert</li>
+        <li>Kontaktformular</li>
+        <li>2 Feedback-Runden</li>
+        <li>Lieferzeit 2 Wochen</li>
+      </ul>
+      <a href="#kontakt" class="preis-btn">Jetzt anfragen</a>
+    </div>
+    <div class="preis-card featured">
+      <div class="featured-badge">Beliebteste Wahl</div>
+      <div class="preis-label">Standard</div>
+      <div class="preis-name">Professional</div>
+      <div class="preis-price">
+        <span class="preis-currency">CHF</span>
+        <span class="preis-amount">1'400</span>
+      </div>
+      <ul class="preis-features">
+        <li>Bis 8 Seiten inkl. Blog oder Galerie</li>
+        <li>Mobil-optimiert & SEO-Grundlagen</li>
+        <li>Kontaktformular + Anfrageformular</li>
+        <li>Google Maps Integration</li>
+        <li>3 Feedback-Runden</li>
+        <li>Lieferzeit 2–3 Wochen</li>
+      </ul>
+      <a href="#kontakt" class="preis-btn">Jetzt anfragen</a>
+    </div>
+    <div class="preis-card">
+      <div class="preis-label">Premium</div>
+      <div class="preis-name">Komplett-Paket</div>
+      <div class="preis-price">
+        <span class="preis-currency">CHF</span>
+        <span class="preis-amount">2'500</span>
+      </div>
+      <ul class="preis-features">
+        <li>Unbegrenzte Seiten</li>
+        <li>Vollständiges SEO-Setup</li>
+        <li>Alle Formulare & Integrationen</li>
+        <li>Einrichtung Hosting & Domain</li>
+        <li>3 Monate Wartung inklusive</li>
+        <li>Priorität-Support</li>
+      </ul>
+      <a href="#kontakt" class="preis-btn">Jetzt anfragen</a>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section class="kontakt" id="kontakt">
+  <div class="section-label">Kontakt</div>
+  <h2 class="section-title">Bereit für <em>Ihre neue Website?</em></h2>
+  <div class="kontakt-grid">
+    <div class="fade">
+      <p>Erzählen Sie mir von Ihrem Unternehmen — ich melde mich innerhalb von 24 Stunden mit einem unverbindlichen Angebot.</p>
+      <div class="kontakt-info">
+        <div class="kontakt-info-item">
+          <h4>Region</h4>
+          <p>Deutschsprachiger Raum</p>
+        </div>
+        <div class="kontakt-info-item">
+          <h4>Antwortzeit</h4>
+          <p>Innerhalb von 24 Stunden</p>
+        </div>
+        <div class="kontakt-info-item">
+          <h4>Erstgespräch</h4>
+          <p>Kostenlos & unverbindlich</p>
+        </div>
+      </div>
+    </div>
+    <div class="fade">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Ihr Name</label>
+          <input type="text" placeholder="Maria Muster">
+        </div>
+        <div class="form-group">
+          <label>Unternehmen</label>
+          <input type="text" placeholder="Muster GmbH">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>E-Mail-Adresse</label>
+        <input type="email" placeholder="maria@beispiel.ch">
+      </div>
+      <div class="form-group">
+        <label>Art des Projekts</label>
+        <select>
+          <option>Neue Website von Grund auf</option>
+          <option>Bestehende Website erneuern</option>
+          <option>Landing Page</option>
+          <option>Noch nicht sicher</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Kurze Beschreibung</label>
+        <textarea placeholder="Was macht Ihr Unternehmen? Was soll die Website erreichen?"></textarea>
+      </div>
+      <button class="form-submit">Anfrage absenden →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">Yunus Ergen<span>.dev</span></a>
+  <ul class="footer-links">
+    <li><a href="#">Impressum</a></li>
+    <li><a href="#">Datenschutz</a></li>
+    <li><a href="https://linkedin.com">LinkedIn</a></li>
+    <li><a href="https://github.com">GitHub</a></li>
+  </ul>
+  <div class="footer-copy">© 2026 Yunus Ergen — Alle Rechte vorbehalten</div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('in'), i * 80);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.fade').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
